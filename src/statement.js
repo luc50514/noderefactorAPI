@@ -1,12 +1,8 @@
 function statement(invoice, plays) {
   let totalAmount = 0;
   let volumeCredits = 0;
-  let result = `Satement for ${invoice.customer}\n`;
-  const format = new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    minimumFractionDigits: 2,
-  }).format;
+  let result = `Statement for ${invoice.customer}\n`;
+  const format = formatAmount();
   for (const perf of invoice.performances) {
     const play = plays[perf.playID];
     let thisAmount = 0;
@@ -39,5 +35,13 @@ function statement(invoice, plays) {
   result += `Amount owed is ${format(totalAmount / 100)}\n`;
   result += `You earned ${volumeCredits} credits\n`;
   return result;
+}
+
+function formatAmount() {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+  }).format;
 }
 module.exports = statement;
