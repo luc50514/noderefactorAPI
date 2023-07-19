@@ -1,43 +1,49 @@
 function statement(invoice, plays) {
-	let totalAmount = 0;
-	let volumeCredits = 0;
-	let result = `Statement for ${invoice.customer}\n`;
-	const format = formatAmount();
-	for (const perf of invoice.performances) {
-		volumeCredits += Math.max(perf.audience - 30, 0);
-		const play = plays[perf.playID];
+  let totalAmount = 0;
+  let volumeCredits = 0;
+  let result = `Statement for ${invoice.customer}\n`;
+  const format = formatAmount();
+  for (const perf of invoice.performances) {
+    volumeCredits += Math.max(perf.audience - 30, 0);
+    const play = plays[perf.playID];
 
-		if ("comedy" === play.type) volumeCredits += Math.floor(perf.audience / 5);
-		let thisAmount = calcAmount(perf, play);
+    if ("comedy" === play.type) volumeCredits += Math.floor(perf.audience / 5);
+    let thisAmount = calcAmount(perf, play);
 
-		result += ` ${play.name}: ${format(thisAmount / 100)} (${perf.audience} seats)\n`;
-		totalAmount += thisAmount;
-	}
-	result += `Amount owed is ${format(totalAmount / 100)}\n`;
-	result += `You earned ${volumeCredits} credits\n`;
-	return result;
+    result += ` ${play.name}: ${format(thisAmount)} (${
+      perf.audience
+    } seats)\n`;
+    totalAmount += thisAmount;
+  }
+  result += `Amount owed is ${format(totalAmount)}\n`;
+  result += `You earned ${volumeCredits} credits\n`;
+  return result;
 }
 
 function calcAmount(perf, play) {
-	let thisAmount = 0;
-	switch (play.type) {
-		case "tragedy":
-			thisAmount = 40000;
-			if (perf.audience > 30) {
-				thisAmount += 1000 * (perf.audience - 30);
-			}
-			break;
-		case "comedy":
-			thisAmount = 30000;
-			if (perf.audience > 20) {
-				thisAmount += 10000 + 500 * (perf.audience - 20);
-			}
-			thisAmount += 300 * perf.audience;
-			break;
-		default:
-			throw new Error("unknown type: ${play.type}");
-	}
-	return thisAmount;
+  let thisAmount = 0;
+  switch (play.type) {
+    case "tragedy":
+      thisAmount = 40000;
+      if (perf.audience > 30) {
+        thisAmount += 1000 * (perf.audience - 30);
+      }
+      break;
+    case "comedy":
+      thisAmount = 30000;
+      if (perf.audience > 20) {
+        thisAmount += 10000 + 500 * (perf.audience - 20);
+      }
+      thisAmount += 300 * perf.audience;
+      break;
+    default:
+      throw new Error("unknown type: ${play.type}");
+  }
+  return calcDollarAmount(thisAmount);
+}
+
+function calcDollarAmount(amount) {
+  return amount / 100;
 }
 
 function formatAmount() {
@@ -47,4 +53,4 @@ function formatAmount() {
     minimumFractionDigits: 2,
   }).format;
 }
-module.exports = statement;
+module.exports = { statement, calcAmount };
