@@ -46,6 +46,6 @@ describe("Statement Test", () => {
         },
         { name: "Hamlet", type: "tragedy" }
       )
-    ).toEqual(650.0);
+    ).toEqual(650.00);
   });
 });
