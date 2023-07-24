@@ -60,4 +60,12 @@ describe("Statement Test", () => {
 			)
 		).toEqual(36);
 	});
+
+  it("should return an array of play calculation objects", ()=>{
+    expect(calculatePlayObjects({
+      playID: "hamlet",
+      audience: 55,
+    },
+    { name: "Hamlet", type: "comedy" })).toEqual([{id: "hamlet", totalAmount: 650, volumeCredits: 36}])
+  })
 });
