@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const port = 3000;
-const statement = require("./src/statement");
+const { statement } = require("./src/statement");
 
 app.get("/", (req, res) => {
   let plays = {

@@ -4,9 +4,8 @@ function statement(invoice, plays) {
   let result = `Statement for ${invoice.customer}\n`;
   const format = formatAmount();
   for (const perf of invoice.performances) {
-    volumeCredits += Math.max(perf.audience - 30, 0);
     const play = plays[perf.playID];
-
+	volumeCredits += Math.max(perf.audience - 30, 0);
     if ("comedy" === play.type) volumeCredits += Math.floor(perf.audience / 5);
     let thisAmount = calcAmount(perf, play);
 
@@ -18,6 +17,13 @@ function statement(invoice, plays) {
   result += `Amount owed is ${format(totalAmount)}\n`;
   result += `You earned ${volumeCredits} credits\n`;
   return result;
+}
+
+function calcVolumeCredits(play, perf) {
+	if ("comedy" === play.type) {
+		return Math.floor(perf.audience / 5);
+	}
+	return Math.max(perf.audience - 30, 0);
 }
 
 function calcAmount(perf, play) {
