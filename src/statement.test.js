@@ -111,4 +111,34 @@ describe("Statement Test", () => {
       },
     ]);
   });
+
+  it("Should return an html list of the statement", () => {
+		const invoices = [
+		  {
+			customer: "BigCo",
+			performances: [
+			  {
+				playID: "hamlet",
+				audience: 55,
+			  },
+			  {
+				playID: "as-like",
+				audience: 35,
+			  },
+			  {
+				playID: "othello",
+				audience: 40,
+			  },
+			],
+		  },
+		];
+		const expectedOutput =
+		  "<div><p>Statement for BigCo</p>" +
+		  " <p>Hamlet: $650.00 (55 seats)</p>" +
+		  " <p>As You Like It: $580.00 (35 seats)</p>" +
+		  " <p>Othello: $500.00 (40 seats)</p>" +
+		  "<p>Amount owed is $1,730.00</p>" +
+		  "<p>You earned 47 credits</p></div>";
+		expect(statement(invoices[0], plays)).toEqual(expectedOutput);
+	  });
 });
