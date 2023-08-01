@@ -9,11 +9,10 @@ function statement(invoice, plays) {
   }).format;
   for (const perf of invoice.performances) {
     const play = plays[perf.playID];
-   
-    let thisAmount = GetThisAmount(perf,play);
 
-    volumeCredits += Math.max(perf.audience - 30, 0);
-    if ("comedy" === play.type) volumeCredits += Math.floor(perf.audience / 5);
+    let thisAmount = GetThisAmount(perf, play);
+
+    volumeCredits = GetVolumeCredits(play, perf, volumeCredits);
 
     result += ` ${play.name}: ${format(thisAmount / 100)} (${
       perf.audience
@@ -25,26 +24,32 @@ function statement(invoice, plays) {
   return result;
 }
 
-function GetThisAmount(perf,play)
-{
-    let thisAmount = 0;
-    switch (play.type) {
-      case "tragedy":
-        thisAmount = 40000;
-        if (perf.audience > 30) {
-          thisAmount += 1000 * (perf.audience - 30);
-        }
-        break;
-      case "comedy":
-        thisAmount = 30000;
-        if (perf.audience > 20) {
-          thisAmount += 10000 + 500 * (perf.audience - 20);
-        }
-        thisAmount += 300 * perf.audience;
-        break;
-      default:
-        throw new Error("unknown type: ${play.type}");
-    }
-    return thisAmount;
+function GetVolumeCredits(play, perf, volumeCredits) {
+  let newVolumeCredits = volumeCredits;
+  newVolumeCredits += Math.max(perf.audience - 30, 0);
+  if ("comedy" === play.type) newVolumeCredits += Math.floor(perf.audience / 5);
+  return newVolumeCredits;
+}
+
+function GetThisAmount(perf, play) {
+  let thisAmount = 0;
+  switch (play.type) {
+    case "tragedy":
+      thisAmount = 40000;
+      if (perf.audience > 30) {
+        thisAmount += 1000 * (perf.audience - 30);
+      }
+      break;
+    case "comedy":
+      thisAmount = 30000;
+      if (perf.audience > 20) {
+        thisAmount += 10000 + 500 * (perf.audience - 20);
+      }
+      thisAmount += 300 * perf.audience;
+      break;
+    default:
+      throw new Error("unknown type: ${play.type}");
+  }
+  return thisAmount;
 }
 module.exports = statement;
