@@ -7,6 +7,7 @@ function statement(invoice, plays) {
     currency: "USD",
     minimumFractionDigits: 2,
   }).format;
+  let playAmounts = [];
   for (const perf of invoice.performances) {
     const play = plays[perf.playID];
 
@@ -14,18 +15,18 @@ function statement(invoice, plays) {
 
     volumeCredits = GetVolumeCredits(play, perf, volumeCredits);
 
-    
     totalAmount += thisAmount;
+    playAmounts.push({
+      playname: play.name,
+      playamount: thisAmount,
+      playID: perf.playID,
+      audience: perf.audience,
+    });
   }
-  for (const perf of invoice.performances) {
-    const play = plays[perf.playID];
-
-    let thisAmount = GetThisAmount(perf, play);
-
-
-    result += ` ${play.name}: ${format(thisAmount / 100)} (${
-      perf.audience
-    } seats)\n`;
+  for (const calculation of playAmounts) {
+    result += ` ${calculation.playname}: ${format(
+      calculation.thisAmount / 100
+    )} (${calculation.audience} seats)\n`;
   }
   result += `Amount owed is ${format(totalAmount / 100)}\n`;
   result += `You earned ${volumeCredits} credits\n`;
