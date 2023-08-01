@@ -1,13 +1,12 @@
 const { statement, calcAmount, calcVolumeCredits, calculatePlayObjects } = require("./statement");
+const plays = {
+	hamlet: { name: "Hamlet", type: "tragedy" },
+	"as-like": { name: "As You Like It", type: "comedy" },
+	othello: { name: "Othello", type: "tragedy" },
+};
 
 describe("Statement Test", () => {
 	it("should test statement returns values", () => {
-		const plays = {
-			hamlet: { name: "Hamlet", type: "tragedy" },
-			"as-like": { name: "As You Like It", type: "comedy" },
-			othello: { name: "Othello", type: "tragedy" },
-		};
-
 		const invoices = [
 			{
 				customer: "BigCo",
@@ -70,8 +69,8 @@ describe("Statement Test", () => {
 					audience: 55,
 				},
 			],
-			[{ name: "Hamlet", type: "comedy" }]
+			plays
 		)
-	).toEqual([{ id: "hamlet", totalAmount: 650, volumeCredits: 36 }]);
+	).toEqual([{ id: "hamlet", totalAmount: 650, volumeCredits: 25, thisAmount: 650, playName: "Hamlet" }]);
   })
 });
