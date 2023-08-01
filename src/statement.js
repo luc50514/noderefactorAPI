@@ -14,10 +14,18 @@ function statement(invoice, plays) {
 
     volumeCredits = GetVolumeCredits(play, perf, volumeCredits);
 
+    
+    totalAmount += thisAmount;
+  }
+  for (const perf of invoice.performances) {
+    const play = plays[perf.playID];
+
+    let thisAmount = GetThisAmount(perf, play);
+
+
     result += ` ${play.name}: ${format(thisAmount / 100)} (${
       perf.audience
     } seats)\n`;
-    totalAmount += thisAmount;
   }
   result += `Amount owed is ${format(totalAmount / 100)}\n`;
   result += `You earned ${volumeCredits} credits\n`;
