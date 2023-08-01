@@ -4,6 +4,7 @@ function statement(invoice, plays) {
   let result = `Statement for ${invoice.customer}\n`;
   const format = formatAmount();
 
+  
   for (const perf of invoice.performances) {
 		const play = plays[perf.playID];
 		let thisAmount = calcAmount(perf, play);
@@ -22,6 +23,21 @@ function statement(invoice, plays) {
 	result += `You earned ${volumeCredits} credits\n`;
 	return result;
 }
+
+function calculatePlayObjects(performances, plays) {
+	let totalAmount = 0;
+	let volumeCredits = 0;
+	let calculatedObjects = [];
+	for (const perf of performances) {
+	  const play = plays[perf.playID];
+	  let thisAmount = calcAmount(perf, play);
+  
+	  totalAmount += thisAmount;
+	  volumeCredits += calcVolumeCredits(perf, play);
+	  calculatedObjects.push({ id: perf.playID, totalAmount, volumeCredits });
+	}
+	return calculatedObjects;
+  }
 
 function calcVolumeCredits(perf, play) {
 	let volumeCredits = 0;
@@ -64,4 +80,4 @@ function formatAmount() {
 		minimumFractionDigits: 2,
 	}).format;
 }
-module.exports = { statement, calcAmount, calcVolumeCredits };
+module.exports = { statement, calcAmount, calcVolumeCredits, calculatePlayObjects };

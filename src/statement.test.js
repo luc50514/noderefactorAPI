@@ -1,4 +1,4 @@
-const { statement, calcAmount, calcVolumeCredits } = require("./statement");
+const { statement, calcAmount, calcVolumeCredits, calculatePlayObjects } = require("./statement");
 
 describe("Statement Test", () => {
 	it("should test statement returns values", () => {
@@ -62,10 +62,10 @@ describe("Statement Test", () => {
 	});
 
   it("should return an array of play calculation objects", ()=>{
-    expect(calculatePlayObjects({
+    expect(calculatePlayObjects([{
       playID: "hamlet",
       audience: 55,
-    },
+    }],
     { name: "Hamlet", type: "comedy" })).toEqual([{id: "hamlet", totalAmount: 650, volumeCredits: 36}])
   })
 });
