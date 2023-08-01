@@ -1,16 +1,17 @@
 function statement(invoice, plays) {
 	let result = `Statement for ${invoice.customer}\n`;
 	const format = formatAmount();
-
+	let totalAmount = 0;
+	let volumeCredits = 0;
 	const calcObj = calculatePlayObjects(invoice.performances, plays);
 	for (const perf of calcObj) {
-		const play = plays[perf.playID];
-
+		totalAmount = perf.totalAmount;
+		volumeCredits = perf.volumeCredits
 		result += ` ${perf.playName}: ${format(perf.thisAmount)} (${perf.audience} seats)\n`;
 	}
 
-	result += `Amount owed is ${format(perf.totalAmount)}\n`;
-	result += `You earned ${perf.volumeCredits} credits\n`;
+	result += `Amount owed is ${format(totalAmount)}\n`;
+	result += `You earned ${volumeCredits} credits\n`;
 	return result;
 }
 
@@ -24,7 +25,7 @@ function calculatePlayObjects(performances, plays) {
 
 		totalAmount += thisAmount;
 		volumeCredits += calcVolumeCredits(perf, play);
-		calculatedObjects.push({ id: perf.playID, totalAmount, volumeCredits, thisAmount, playName: play.name });
+		calculatedObjects.push({ id: perf.playID, totalAmount, volumeCredits, thisAmount, playName: play.name, audience: perf.audience });
 	}
 	return calculatedObjects;
 }
