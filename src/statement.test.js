@@ -73,4 +73,18 @@ describe("Statement Test", () => {
 		)
 	).toEqual([{ id: "hamlet", totalAmount: 650, volumeCredits: 25, thisAmount: 650, playName: "Hamlet", audience: 55}]);
   })
+
+  it("Add a play", ()=>{
+    expect(
+		calculatePlayObjects(
+			[
+				{
+					playID: "RomeoAndJuliet",
+					audience: 55,
+				},
+			],
+			plays
+		)
+	).toEqual([{ id: "hamlet", totalAmount: 650, volumeCredits: 25, thisAmount: 650, playName: "Hamlet", audience: 55}]);
+  })
 });
