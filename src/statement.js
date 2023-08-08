@@ -15,6 +15,23 @@ function statement(invoice, plays) {
 	return result;
 }
 
+function statementHTML(invoice, plays) {
+	let result = `<div><p>Statement for ${invoice.customer}</p>\n`;
+	const format = formatAmount();
+	let totalAmount = 0;
+	let volumeCredits = 0;
+	const calcObj = calculatePlayObjects(invoice.performances, plays);
+	for (const perf of calcObj) {
+		totalAmount = perf.totalAmount;
+		volumeCredits = perf.volumeCredits;
+		result += ` <p>${perf.playName}: ${format(perf.thisAmount)} (${perf.audience} seats)</p>\n`;
+	}
+
+	result += `<p>Amount owed is ${format(totalAmount)}</p>\n`;
+	result += `<p>You earned ${volumeCredits} credits</p></div>\n`;
+	return result;
+}
+
 function calculatePlayObjects(performances, plays) {
 	let totalAmount = 0;
 	let volumeCredits = 0;
@@ -71,4 +88,4 @@ function formatAmount() {
 		minimumFractionDigits: 2,
 	}).format;
 }
-module.exports = { statement, calcAmount, calcVolumeCredits, calculatePlayObjects };
+module.exports = { statement, calcAmount, calcVolumeCredits, calculatePlayObjects, statementHTML };
