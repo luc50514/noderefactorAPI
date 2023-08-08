@@ -32,6 +32,13 @@ function statementHTML(invoice, plays) {
 	return result;
 }
 
+function formatedStatements(invoice, plays) {
+	return {
+		html: statementHTML(invoice, plays),
+		plainText: statement(invoice, plays)
+	}
+}
+
 function calculatePlayObjects(performances, plays) {
 	let totalAmount = 0;
 	let volumeCredits = 0;
@@ -88,4 +95,4 @@ function formatAmount() {
 		minimumFractionDigits: 2,
 	}).format;
 }
-module.exports = { statement, calcAmount, calcVolumeCredits, calculatePlayObjects, statementHTML };
+module.exports = { statement, calcAmount, calcVolumeCredits, calculatePlayObjects, statementHTML, formatedStatements };
