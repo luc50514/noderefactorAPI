@@ -29,9 +29,9 @@ describe("Statement Test", () => {
 		];
 		const expectedOutput =
 			"Statement for BigCo\n" +
-			" Hamlet: $650.00 (55 seats)\n" +
-			" As You Like It: $580.00 (35 seats)\n" +
-			" Othello: $500.00 (40 seats)\n" +
+			"Hamlet: $650.00 (55 seats)\n" +
+			"As You Like It: $580.00 (35 seats)\n" +
+			"Othello: $500.00 (40 seats)\n" +
 			"Amount owed is $1,730.00\n" +
 			"You earned 47 credits\n";
 		expect(statement(invoices[0], plays)).toEqual(expectedOutput);
@@ -129,9 +129,9 @@ describe("Statement Test", () => {
 		];
 		const expectedOutput =
 			"<div><p>Statement for BigCo</p>\n" +
-			" <p>Hamlet: $650.00 (55 seats)</p>\n" +
-			" <p>As You Like It: $580.00 (35 seats)</p>\n" +
-			" <p>Othello: $500.00 (40 seats)</p>\n" +
+			"<p>Hamlet: $650.00 (55 seats)</p>\n" +
+			"<p>As You Like It: $580.00 (35 seats)</p>\n" +
+			"<p>Othello: $500.00 (40 seats)</p>\n" +
 			"<p>Amount owed is $1,730.00</p>\n" +
 			"<p>You earned 47 credits</p></div>\n";
 		expect(statementHTML(invoices[0], plays)).toEqual(expectedOutput);
@@ -160,17 +160,17 @@ describe("Statement Test", () => {
 
 		const expectedOutputHTML =
 			"<div><p>Statement for BigCo</p>\n" +
-			" <p>Hamlet: $650.00 (55 seats)</p>\n" +
-			" <p>As You Like It: $580.00 (35 seats)</p>\n" +
-			" <p>Othello: $500.00 (40 seats)</p>\n" +
+			"<p>Hamlet: $650.00 (55 seats)</p>\n" +
+			"<p>As You Like It: $580.00 (35 seats)</p>\n" +
+			"<p>Othello: $500.00 (40 seats)</p>\n" +
 			"<p>Amount owed is $1,730.00</p>\n" +
 			"<p>You earned 47 credits</p></div>\n";
 
 		const expectedOutputPlain =
 			"Statement for BigCo\n" +
-			" Hamlet: $650.00 (55 seats)\n" +
-			" As You Like It: $580.00 (35 seats)\n" +
-			" Othello: $500.00 (40 seats)\n" +
+			"Hamlet: $650.00 (55 seats)\n" +
+			"As You Like It: $580.00 (35 seats)\n" +
+			"Othello: $500.00 (40 seats)\n" +
 			"Amount owed is $1,730.00\n" +
 			"You earned 47 credits\n";
 

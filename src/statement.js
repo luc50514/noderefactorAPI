@@ -6,8 +6,8 @@ function statement(invoice, plays) {
 	const calcObj = calculatePlayObjects(invoice.performances, plays);
 	for (const perf of calcObj) {
 		totalAmount = perf.totalAmount;
-		volumeCredits = perf.volumeCredits
-		result += ` ${perf.playName}: ${format(perf.thisAmount)} (${perf.audience} seats)\n`;
+		volumeCredits = perf.volumeCredits;
+		result += `${perf.playName}: ${format(perf.thisAmount)} (${perf.audience} seats)\n`;
 	}
 
 	result += `Amount owed is ${format(totalAmount)}\n`;
@@ -16,20 +16,19 @@ function statement(invoice, plays) {
 }
 
 function statementHTML(invoice, plays) {
-	let result = `<div><p>Statement for ${invoice.customer}</p>\n`;
-	const format = formatAmount();
-	let totalAmount = 0;
-	let volumeCredits = 0;
-	const calcObj = calculatePlayObjects(invoice.performances, plays);
-	for (const perf of calcObj) {
-		totalAmount = perf.totalAmount;
-		volumeCredits = perf.volumeCredits;
-		result += ` <p>${perf.playName}: ${format(perf.thisAmount)} (${perf.audience} seats)</p>\n`;
+	let result = statement(invoice, plays);
+	let resultHTML = "";
+	let lines = result.split(/\r?\n|\r|\n/g);
+
+	for (let i = 0; i < lines.length; i++) {
+		if (i < lines.length - 2) {
+			resultHTML += "<p>" + lines[i] + "</p>\n";
+		} else if (i < lines.length - 1) {
+			resultHTML += "<p>" + lines[i] + "</p>";
+		}
 	}
 
-	result += `<p>Amount owed is ${format(totalAmount)}</p>\n`;
-	result += `<p>You earned ${volumeCredits} credits</p></div>\n`;
-	return result;
+	return `<div>${resultHTML}</div>`;
 }
 
 function formatedStatements(invoice, plays) {
