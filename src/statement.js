@@ -27,7 +27,7 @@ function statementHTML(invoice, plays) {
 			resultHTML += "<p>" + lines[i] + "</p>";
 		}
 	}
-
+	
 	return `<div>${resultHTML}</div>`;
 }
 

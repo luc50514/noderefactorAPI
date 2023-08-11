@@ -133,7 +133,7 @@ describe("Statement Test", () => {
 			"<p>As You Like It: $580.00 (35 seats)</p>\n" +
 			"<p>Othello: $500.00 (40 seats)</p>\n" +
 			"<p>Amount owed is $1,730.00</p>\n" +
-			"<p>You earned 47 credits</p></div>\n";
+			"<p>You earned 47 credits</p></div>";
 		expect(statementHTML(invoices[0], plays)).toEqual(expectedOutput);
 	});
 
@@ -164,7 +164,7 @@ describe("Statement Test", () => {
 			"<p>As You Like It: $580.00 (35 seats)</p>\n" +
 			"<p>Othello: $500.00 (40 seats)</p>\n" +
 			"<p>Amount owed is $1,730.00</p>\n" +
-			"<p>You earned 47 credits</p></div>\n";
+			"<p>You earned 47 credits</p></div>";
 
 		const expectedOutputPlain =
 			"Statement for BigCo\n" +
