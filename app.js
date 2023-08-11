@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const port = 3000;
-const { statement } = require("./src/statement");
+const { statement, formatedStatements } = require("./src/statement");
 
 app.get("/", (req, res) => {
   let plays = {
@@ -28,7 +28,7 @@ app.get("/", (req, res) => {
       ],
     },
   ];
-  res.send(statement(invoices[0], plays));
+  res.send(formatedStatements(invoices[0], plays).html);
 });
 
 app.listen(port, () => {
