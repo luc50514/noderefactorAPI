@@ -1,3 +1,5 @@
+const { calcDollarAmount } = require("./utils/calcDollarAmount.js");
+
 function statement(invoice, plays) {
 	let result = `Statement for ${invoice.customer}\n`;
 	const format = formatAmount();
@@ -27,15 +29,15 @@ function statementHTML(invoice, plays) {
 			resultHTML += "<p>" + lines[i] + "</p>";
 		}
 	}
-	
+
 	return `<div>${resultHTML}</div>`;
 }
 
 function formatedStatements(invoice, plays) {
 	return {
 		html: statementHTML(invoice, plays),
-		plainText: statement(invoice, plays)
-	}
+		plainText: statement(invoice, plays),
+	};
 }
 
 function calculatePlayObjects(performances, plays) {
@@ -81,10 +83,6 @@ function calcAmount(perf, play) {
 			throw new Error("unknown type: ${play.type}");
 	}
 	return calcDollarAmount(thisAmount);
-}
-
-function calcDollarAmount(amount) {
-	return amount / 100;
 }
 
 function formatAmount() {
