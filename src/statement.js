@@ -47,4 +47,4 @@ function formatAmount() {
 		minimumFractionDigits: 2,
 	}).format;
 }
-module.exports = { statement, calcAmount, calcVolumeCredits, calculatePlayObjects, statementHTML, formatedStatements };
+module.exports = { statement, statementHTML, formatedStatements };
