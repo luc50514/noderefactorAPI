@@ -1,4 +1,4 @@
-const { calcDollarAmount,calcVolumeCredits, calcAmount } = require("./Calculations.js");
+const { calcDollarAmount,calcVolumeCredits, calcAmount, calculatePlayObjects } = require("./Calculations.js");
 
 describe("Calc dollar amount", () => {
 	const invoices = [
@@ -41,5 +41,28 @@ describe("Calc dollar amount", () => {
 	it("calculates VolumCredits refactor", () => {		
 
 		expect(calcVolumeCredits(invoices[0].performances[0],plays.hamlet)).toEqual(25);
+	});
+
+	it("generates an array of calculated play objects", () => {
+		expect(
+			calculatePlayObjects(
+				[
+					{
+						playID: "RomeoAndJuliet",
+						audience: 65,
+					},
+				],
+				plays
+			)
+		).toEqual([
+			{
+				id: "RomeoAndJuliet",
+				totalAmount: 750,
+				volumeCredits: 35,
+				thisAmount: 750,
+				playName: "RomeoAndJuliet",
+				audience: 65,
+			},
+		]);
 	});
 });

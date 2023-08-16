@@ -32,4 +32,19 @@ function calcVolumeCredits(perf, play) {
 	return (volumeCredits += Math.max(perf.audience - 30, 0));
 }
 
-module.exports = { calcDollarAmount, calcVolumeCredits,calcAmount };
+function calculatePlayObjects(performances, plays) {
+	let totalAmount = 0;
+	let volumeCredits = 0;
+	let calculatedObjects = [];
+	for (const perf of performances) {
+		const play = plays[perf.playID];
+		let thisAmount = calcAmount(perf, play);
+
+		totalAmount += thisAmount;
+		volumeCredits += calcVolumeCredits(perf, play);
+		calculatedObjects.push({ id: perf.playID, totalAmount, volumeCredits, thisAmount, playName: play.name, audience: perf.audience });
+	}
+	return calculatedObjects;
+}
+
+module.exports = { calcDollarAmount, calcVolumeCredits,calcAmount, calculatePlayObjects };

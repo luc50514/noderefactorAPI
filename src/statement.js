@@ -1,4 +1,4 @@
-const { calcAmount } = require("./utils/Calculations.js");
+const { calcAmount, calcVolumeCredits, calculatePlayObjects } = require("./utils/Calculations.js");
 
 function statement(invoice, plays) {
 	let result = `Statement for ${invoice.customer}\n`;
@@ -38,29 +38,6 @@ function formatedStatements(invoice, plays) {
 		html: statementHTML(invoice, plays),
 		plainText: statement(invoice, plays),
 	};
-}
-
-function calculatePlayObjects(performances, plays) {
-	let totalAmount = 0;
-	let volumeCredits = 0;
-	let calculatedObjects = [];
-	for (const perf of performances) {
-		const play = plays[perf.playID];
-		let thisAmount = calcAmount(perf, play);
-
-		totalAmount += thisAmount;
-		volumeCredits += calcVolumeCredits(perf, play);
-		calculatedObjects.push({ id: perf.playID, totalAmount, volumeCredits, thisAmount, playName: play.name, audience: perf.audience });
-	}
-	return calculatedObjects;
-}
-
-function calcVolumeCredits(perf, play) {
-	let volumeCredits = 0;
-	if ("comedy" === play.type) {
-		volumeCredits += Math.floor(perf.audience / 5);
-	}
-	return (volumeCredits += Math.max(perf.audience - 30, 0));
 }
 
 function formatAmount() {
