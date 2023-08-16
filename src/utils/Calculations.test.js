@@ -1,4 +1,4 @@
-const { calcDollarAmount, calcAmount } = require("./calcDollarAmount.js");
+const { calcDollarAmount,calcVolumeCredits, calcAmount } = require("./Calculations.js");
 
 describe("Calc dollar amount", () => {
 	const invoices = [
@@ -38,9 +38,8 @@ describe("Calc dollar amount", () => {
 		expect(calcAmount(invoices[0].performances[0],plays.hamlet)).toEqual(650.0);
 	});
 
-	it("calculates performance amount refactor", () => {
-		
+	it("calculates VolumCredits refactor", () => {		
 
-		expect(1).toEqual(650.0);
+		expect(calcVolumeCredits(invoices[0].performances[0],plays.hamlet)).toEqual(25);
 	});
 });

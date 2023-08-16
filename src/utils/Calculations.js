@@ -24,4 +24,12 @@ function calcAmount(perf, play) {
 	return calcDollarAmount(thisAmount);
 }
 
-module.exports = { calcDollarAmount, calcAmount };
+function calcVolumeCredits(perf, play) {
+	let volumeCredits = 0;
+	if ("comedy" === play.type) {
+		volumeCredits += Math.floor(perf.audience / 5);
+	}
+	return (volumeCredits += Math.max(perf.audience - 30, 0));
+}
+
+module.exports = { calcDollarAmount, calcVolumeCredits,calcAmount };

@@ -1,4 +1,4 @@
-const { calcDollarAmount } = require("./utils/calcDollarAmount.js");
+const { calcAmount } = require("./utils/Calculations.js");
 
 function statement(invoice, plays) {
 	let result = `Statement for ${invoice.customer}\n`;
@@ -61,28 +61,6 @@ function calcVolumeCredits(perf, play) {
 		volumeCredits += Math.floor(perf.audience / 5);
 	}
 	return (volumeCredits += Math.max(perf.audience - 30, 0));
-}
-
-function calcAmount(perf, play) {
-	let thisAmount = 0;
-	switch (play.type) {
-		case "tragedy":
-			thisAmount = 40000;
-			if (perf.audience > 30) {
-				thisAmount += 1000 * (perf.audience - 30);
-			}
-			break;
-		case "comedy":
-			thisAmount = 30000;
-			if (perf.audience > 20) {
-				thisAmount += 10000 + 500 * (perf.audience - 20);
-			}
-			thisAmount += 300 * perf.audience;
-			break;
-		default:
-			throw new Error("unknown type: ${play.type}");
-	}
-	return calcDollarAmount(thisAmount);
 }
 
 function formatAmount() {
